@@ -17,7 +17,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhone"
             android:hint="Phone Number"
-            android:text="9797551666"
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
@@ -34,7 +34,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editName"
             android:hint="Name"
-            android:text="Diviya"
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
@@ -53,7 +53,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/password"
             android:hint="Password"
-            android:text="divya6666"
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/white"
