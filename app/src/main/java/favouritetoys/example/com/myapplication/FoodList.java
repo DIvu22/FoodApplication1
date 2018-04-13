@@ -39,10 +39,11 @@ public class FoodList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (getIntent() != null)
+        if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("CategoryId");
-        if (!categoryId.isEmpty() && categoryId != null) {
-            loadListFood(categoryId);
+            if (!categoryId.isEmpty() && categoryId != null) {
+                loadListFood(categoryId);
+            }
         }
     }
 
