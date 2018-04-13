@@ -102,6 +102,7 @@ public class Home extends AppCompatActivity
 
                     public void onClick(View view, int position, boolean isLongClick) {
                         Intent foodList=new Intent(Home.this,FoodList.class);
+                        //because CategoryId is key,so we take that of this item
                         foodList.putExtra(" CategoryId",adapter.getRef(position).getKey());
                         startActivity(foodList);
 
