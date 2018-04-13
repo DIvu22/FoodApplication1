@@ -5,11 +5,10 @@ package favouritetoys.example.com.myapplication.Model;
  */
 
 public class Category {
-    private  String Name;
-    private  String Image;
+    private String Name;
+    private String Image;
 
-    public  Category()
-    {
+    public Category() {
 
     }
 

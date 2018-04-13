@@ -19,25 +19,25 @@ import favouritetoys.example.com.myapplication.Common.Common;
 import favouritetoys.example.com.myapplication.Model.User;
 
 public class SignIn extends AppCompatActivity {
-    MaterialEditText  editphone,password;
+    MaterialEditText editphone, password;
     Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        editphone=(MaterialEditText)findViewById(R.id.editPhone);
-        password=(MaterialEditText)findViewById(R.id.password);
-        btn=(Button)findViewById(R.id.btn_SignIn);
+        editphone = (MaterialEditText) findViewById(R.id.editPhone);
+        password = (MaterialEditText) findViewById(R.id.password);
+        btn = (Button) findViewById(R.id.btn_SignIn);
 
-        FirebaseDatabase fd=FirebaseDatabase.getInstance();
-        final DatabaseReference dr= fd.getReference("User");
+        FirebaseDatabase fd = FirebaseDatabase.getInstance();
+        final DatabaseReference dr = fd.getReference("User");
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                final ProgressDialog mpd=new ProgressDialog(SignIn.this);
+                final ProgressDialog mpd = new ProgressDialog(SignIn.this);
                 mpd.setMessage("loading...");
                 mpd.show();
 
@@ -52,20 +52,17 @@ public class SignIn extends AppCompatActivity {
 
                             if (user.getPassword().equals(password.getText().toString())) {
 
-                                Intent homeIntent=new Intent(SignIn.this,Home.class);
-                                Common.currentUser=user;
+                                Intent homeIntent = new Intent(SignIn.this, Home.class);
+                                Common.currentUser = user;
                                 startActivity(homeIntent);
                                 finish();
 
                             } else {
                                 Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        else
-                        {
+                        } else {
                             mpd.dismiss();
-                            Toast.makeText(SignIn.this,"User doesn't exists",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignIn.this, "User doesn't exists", Toast.LENGTH_SHORT).show();
                         }
                     }
 

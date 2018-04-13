@@ -34,7 +34,7 @@ public class Home extends AppCompatActivity
     TextView txtFullName;
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
-     FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
+    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
 
 
     @Override
@@ -47,10 +47,8 @@ public class Home extends AppCompatActivity
 
 
         //Init Firebase
-        database=FirebaseDatabase.getInstance();
-        category=database.getReference("Category");
-
-
+        database = FirebaseDatabase.getInstance();
+        category = database.getReference("Category");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -73,37 +71,35 @@ public class Home extends AppCompatActivity
 
         //set name for user
 
-        View headerView=navigationView.getHeaderView(0);
-        txtFullName=(TextView)headerView.findViewById(R.id.txtFullName);
+        View headerView = navigationView.getHeaderView(0);
+        txtFullName = (TextView) headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.currentUser.getName());
 
         //load menu
 
-        recycler_menu=(RecyclerView)findViewById(R.id.recycler_menu);
-           recycler_menu.setHasFixedSize(true);
-      layoutManager=new LinearLayoutManager(this);
-      recycler_menu.setLayoutManager(layoutManager);
-      loadMenu();
+        recycler_menu = (RecyclerView) findViewById(R.id.recycler_menu);
+        recycler_menu.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recycler_menu.setLayoutManager(layoutManager);
+        loadMenu();
 
 
     }
 
-    private  void loadMenu()
-    {
-       adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class,R.layout.menu_item,MenuViewHolder.class,category) {
+    private void loadMenu() {
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
             @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position)
-            {
-            viewHolder.txtMenuName.setText(model.getName());
+            protected void populateViewHolder(MenuViewHolder viewHolder, Category model, int position) {
+                viewHolder.txtMenuName.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.imageView);
-                final Category clickItem=model;
-                viewHolder.setItemClickListener(new ItemClickListener(){
+                final Category clickItem = model;
+                viewHolder.setItemClickListener(new ItemClickListener() {
 
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Intent foodList=new Intent(Home.this,FoodList.class);
+                        Intent foodList = new Intent(Home.this, FoodList.class);
                         //because CategoryId is key,so we take that of this item
-                        foodList.putExtra(" CategoryId",adapter.getRef(position).getKey());
+                        foodList.putExtra(" CategoryId", adapter.getRef(position).getKey());
                         startActivity(foodList);
 
                     }

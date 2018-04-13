@@ -5,9 +5,9 @@ package favouritetoys.example.com.myapplication.Model;
  */
 
 public class Food {
-    private String Name,Image,Description,Price,Discount,MenuId;
-    public  Food()
-    {
+    private String Name, Image, Description, Price, Discount, MenuId;
+
+    public Food() {
 
     }
 

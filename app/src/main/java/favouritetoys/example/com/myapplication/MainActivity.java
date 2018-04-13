@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    Button signUp,signIn;
+    Button signUp, signIn;
     TextView slogan;
 
     @Override
@@ -16,17 +16,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        signUp=(Button)findViewById(R.id.btn_signup);
-        signIn=(Button)findViewById(R.id.btn_signin);
-        slogan=(TextView)findViewById(R.id.slogan);
-
+        signUp = (Button) findViewById(R.id.btn_signup);
+        signIn = (Button) findViewById(R.id.btn_signin);
+        slogan = (TextView) findViewById(R.id.slogan);
 
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent signIn= new Intent(MainActivity.this,SignIn.class);
+                Intent signIn = new Intent(MainActivity.this, SignIn.class);
                 startActivity(signIn);
 
             }
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signUp=new Intent(MainActivity.this,SignUp.class);
+                Intent signUp = new Intent(MainActivity.this, SignUp.class);
                 startActivity(signUp);
             }
         });

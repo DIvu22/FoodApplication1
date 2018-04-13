@@ -17,23 +17,22 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public ImageView food_image;
     private ItemClickListener itemClickListener;
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
-
-    public FoodViewHolder(View itemView)
-    {
+    public FoodViewHolder(View itemView) {
         super(itemView);
-        food_name=(TextView)itemView.findViewById(R.id.food_name);
-        food_image=(ImageView)itemView.findViewById(R.id.food_image);
+        food_name = (TextView) itemView.findViewById(R.id.food_name);
+        food_image = (ImageView) itemView.findViewById(R.id.food_image);
         itemView.setOnClickListener(this);
 
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
     public void onClick(View v) {
 
-        itemClickListener.onClick(v,getAdapterPosition(),false);
+        itemClickListener.onClick(v, getAdapterPosition(), false);
 
     }
 }
