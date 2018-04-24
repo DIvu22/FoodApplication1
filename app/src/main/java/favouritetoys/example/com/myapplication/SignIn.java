@@ -49,6 +49,7 @@ public class SignIn extends AppCompatActivity {
 
                             mpd.dismiss();
                             User user = dataSnapshot.child(editphone.getText().toString()).getValue(User.class);
+                            user.setPhone(editphone.getText().toString());
 
                             if (user.getPassword().equals(password.getText().toString())) {
 
