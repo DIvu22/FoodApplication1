@@ -66,19 +66,23 @@ public class FoodList extends AppCompatActivity {
         materialSearchBar.setLastSuggestions(suggestList);
         materialSearchBar.setCardViewElevation(10);
         materialSearchBar.addTextChangeListener(new TextWatcher() {
-            //when user type their text,we will change suggest accordingly
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //when user type their text,we will change suggest accordingly
+
                 List<String> suggest = new ArrayList<>();
                 for (String search : suggestList) {
                     if (search.toLowerCase().contains(materialSearchBar.getText().toLowerCase()))
                         suggest.add(search);
                 }
                 materialSearchBar.setLastSuggestions(suggest);
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
@@ -90,12 +94,16 @@ public class FoodList extends AppCompatActivity {
         materialSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
+
+                //when search bar is closed
+                //restore original aapter
                 if (!enabled)
                     recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onSearchConfirmed(CharSequence text) {
+                //when search finishes,show result of search adapter
                 startSearch(text);
 
             }
