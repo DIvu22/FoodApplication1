@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import favouritetoys.example.com.myapplication.Common.Common;
 import favouritetoys.example.com.myapplication.Model.User;
 
 public class SignUp extends AppCompatActivity {
@@ -35,34 +36,40 @@ public class SignUp extends AppCompatActivity {
         btn_Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog pd = new ProgressDialog(SignUp.this);
-                pd.setMessage("Loading...");
-                pd.show();
+                if (Common.isConnectedToInternet(getBaseContext())) {
+
+                    final ProgressDialog pd = new ProgressDialog(SignUp.this);
+                    pd.setMessage("Loading...");
+                    pd.show();
 
 
-                dr.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    dr.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (dataSnapshot.child(editPhone.getText().toString()).exists()) {
+                            if (dataSnapshot.child(editPhone.getText().toString()).exists()) {
 
-                            pd.dismiss();
-                            Toast.makeText(SignUp.this, "Phone Number already exists", Toast.LENGTH_SHORT).show();
-                        } else {
-                            pd.dismiss();
-                            User user = new User(editName.getText().toString(), editPassword.getText().toString());
-                            dr.child(editPhone.getText().toString()).setValue(user);
-                            Toast.makeText(SignUp.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
-                            finish();
+                                pd.dismiss();
+                                Toast.makeText(SignUp.this, "Phone Number already exists", Toast.LENGTH_SHORT).show();
+                            } else {
+                                pd.dismiss();
+                                User user = new User(editName.getText().toString(), editPassword.getText().toString());
+                                dr.child(editPhone.getText().toString()).setValue(user);
+                                Toast.makeText(SignUp.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
                         }
 
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                        }
+                    });
+                } else {
+                    Toast.makeText(SignUp.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }

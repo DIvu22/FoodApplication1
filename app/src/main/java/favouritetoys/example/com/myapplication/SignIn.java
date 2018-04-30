@@ -37,42 +37,49 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                final ProgressDialog mpd = new ProgressDialog(SignIn.this);
-                mpd.setMessage("loading...");
-                mpd.show();
-
-                dr.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child(editphone.getText().toString()).exists()) {
+                if (Common.isConnectedToInternet(getBaseContext())) {
 
 
-                            mpd.dismiss();
-                            User user = dataSnapshot.child(editphone.getText().toString()).getValue(User.class);
-                            user.setPhone(editphone.getText().toString());
+                    final ProgressDialog mpd = new ProgressDialog(SignIn.this);
+                    mpd.setMessage("loading...");
+                    mpd.show();
 
-                            if (user.getPassword().equals(password.getText().toString())) {
+                    dr.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.child(editphone.getText().toString()).exists()) {
 
-                                Intent homeIntent = new Intent(SignIn.this, Home.class);
-                                Common.currentUser = user;
-                                startActivity(homeIntent);
-                                finish();
 
+                                mpd.dismiss();
+                                User user = dataSnapshot.child(editphone.getText().toString()).getValue(User.class);
+                                user.setPhone(editphone.getText().toString());
+
+                                if (user.getPassword().equals(password.getText().toString())) {
+
+                                    Intent homeIntent = new Intent(SignIn.this, Home.class);
+                                    Common.currentUser = user;
+                                    startActivity(homeIntent);
+                                    finish();
+
+                                } else {
+                                    Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+                                mpd.dismiss();
+                                Toast.makeText(SignIn.this, "User doesn't exists", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            mpd.dismiss();
-                            Toast.makeText(SignIn.this, "User doesn't exists", Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
 
+                } else {
+                    Toast.makeText(SignIn.this, "Check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         });
     }
