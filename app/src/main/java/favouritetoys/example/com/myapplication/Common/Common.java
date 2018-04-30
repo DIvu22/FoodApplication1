@@ -12,6 +12,9 @@ import favouritetoys.example.com.myapplication.Model.User;
 
 public class Common {
     public static final String DELETE = "Delete";
+    public static final String USER_KEY = "User";
+    public static final String PWD_KEY = "Password";
+
     public  static User currentUser;
 
     public static String convertCodeToStatus(String code) {

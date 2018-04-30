@@ -17,10 +17,12 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import favouritetoys.example.com.myapplication.Common.Common;
 import favouritetoys.example.com.myapplication.Model.User;
+import io.paperdb.Paper;
 
 public class SignIn extends AppCompatActivity {
     MaterialEditText editphone, password;
     Button btn;
+    com.rey.material.widget.CheckBox ckbRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class SignIn extends AppCompatActivity {
         editphone = (MaterialEditText) findViewById(R.id.editPhone);
         password = (MaterialEditText) findViewById(R.id.password);
         btn = (Button) findViewById(R.id.btn_SignIn);
+        ckbRemember = (com.rey.material.widget.CheckBox) findViewById(R.id.ckbRemember);
+
+        Paper.init(this);
 
         FirebaseDatabase fd = FirebaseDatabase.getInstance();
         final DatabaseReference dr = fd.getReference("User");
@@ -38,6 +43,11 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (Common.isConnectedToInternet(getBaseContext())) {
+
+                    if (ckbRemember.isChecked()) {
+                        Paper.book().write(Common.USER_KEY, editphone.getText().toString());
+                        Paper.book().write(Common.PWD_KEY, password.getText().toString());
+                    }
 
 
                     final ProgressDialog mpd = new ProgressDialog(SignIn.this);

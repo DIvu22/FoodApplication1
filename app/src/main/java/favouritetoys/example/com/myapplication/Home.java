@@ -27,6 +27,7 @@ import favouritetoys.example.com.myapplication.Interface.ItemClickListener;
 import favouritetoys.example.com.myapplication.Model.Category;
 import favouritetoys.example.com.myapplication.Service.ListenOrder;
 import favouritetoys.example.com.myapplication.ViewHolder.MenuViewHolder;
+import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +51,7 @@ public class Home extends AppCompatActivity
         //Init Firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
+        Paper.init(this);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -167,6 +169,8 @@ public class Home extends AppCompatActivity
             startActivity(orderIntent);
 
         } else if (id == R.id.nav_sign_out) {
+
+            Paper.book().destroy();
             Intent signIn = new Intent(Home.this, SignIn.class);
             signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(signIn);

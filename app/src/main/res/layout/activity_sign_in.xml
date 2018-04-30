@@ -8,23 +8,23 @@
     tools:context="favouritetoys.example.com.myapplication.SignIn">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical">
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/editPhone"
-            android:hint="Phone Number"
-            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:textSize="34sp"
+            android:hint="Phone Number"
             android:inputType="phone"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="34sp"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="11"
@@ -34,14 +34,14 @@
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/password"
-            android:hint="Password"
-            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:textSize="34sp"
+            android:hint="Password"
             android:inputType="textPassword"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textSize="34sp"
             app:met_baseColor="@android:color/white"
             app:met_floatingLabel="highlight"
             app:met_maxCharacters="11"
@@ -49,23 +49,34 @@
             app:met_singleLineEllipsis="true"
             />
 
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/ckbRemember"
+            style="@style/Material.Drawable.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Remember me"
+            android:textColor="@android:color/white"
+            app:cbd_strokeColor="@android:color/white"
+            app:cbd_tickColor="@color/colorPrimaryDark" />
+
 
 
     </LinearLayout>
 
     <Button
-        android:layout_weight="1"
         android:id="@+id/btn_SignIn"
-        android:text="Sign In"
-        android:textColor="@android:color/white"
-        android:layout_margin="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/btnsignin"
-
         android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:background="@color/btnsignin"
+        android:text="Sign In"
+
+        android:textColor="@android:color/white"
   />
 
 </RelativeLayout>
