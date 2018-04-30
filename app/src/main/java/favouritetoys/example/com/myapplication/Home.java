@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import favouritetoys.example.com.myapplication.Common.Common;
 import favouritetoys.example.com.myapplication.Interface.ItemClickListener;
 import favouritetoys.example.com.myapplication.Model.Category;
+import favouritetoys.example.com.myapplication.Service.ListenOrder;
 import favouritetoys.example.com.myapplication.ViewHolder.MenuViewHolder;
 
 public class Home extends AppCompatActivity
@@ -81,6 +82,9 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
         loadMenu();
+
+        Intent service = new Intent(Home.this, ListenOrder.class);
+        startService(service);
 
 
     }

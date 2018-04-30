@@ -9,4 +9,17 @@ import favouritetoys.example.com.myapplication.Model.User;
 public class Common {
     public  static User currentUser;
 
+    public static String convertCodeToStatus(String code) {
+        if (code.equals("0"))
+            return "Placed";
+
+        else if (code.equals("0"))
+            return "On the way";
+
+        else
+            return "Shipped";
+
+
+    }
+
 }
