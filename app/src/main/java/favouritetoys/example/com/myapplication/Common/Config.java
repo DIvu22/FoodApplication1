@@ -6,5 +6,4 @@ package favouritetoys.example.com.myapplication.Common;
 
 public class Config {
     public static final String PAYPAL_CLIENT_ID = "AZbs_R5ImAcz_lzxaRXh6piwddEaImu598wGx_PVQJwMtDMqmlZJOlGoNOsM_pRdfgXuaCL1ZIolJjB7";
-
 }

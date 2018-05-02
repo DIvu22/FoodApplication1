@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class Request {
+    private String paymentState;
     private String phone;
     private String name;
     private String address;
@@ -18,7 +19,8 @@ public class Request {
     public Request() {
     }
 
-    public Request(String phone, String name, String address, String total, List<Order> foods) {
+    public Request(String paymentState, String phone, String name, String address, String total, List<Order> foods) {
+        this.paymentState = paymentState;
         this.phone = phone;
         this.name = name;
         this.address = address;

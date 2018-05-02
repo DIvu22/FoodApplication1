@@ -27,7 +27,7 @@ import favouritetoys.example.com.myapplication.R;
  */
 class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
 
-    public TextView txt_cart_name, txt_price;
+    public TextView txt_cart_name, txt_price, rs;
     public ImageView img_cart_button;
 
     private ItemClickListener itemClickListener;
@@ -37,6 +37,7 @@ class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         txt_cart_name = (TextView) itemView.findViewById(R.id.cart_item_name);
         txt_price = (TextView) itemView.findViewById(R.id.cart_item_price);
         img_cart_button = (ImageView) itemView.findViewById(R.id.cart_item_count);
+
         itemView.setOnCreateContextMenuListener(this);
     }
 
@@ -61,7 +62,6 @@ public class CartAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     private List<Order> listData = new ArrayList<>();
     private Context context;
-
     public CartAdapter(List<Order> listData, Context context) {
         this.listData = listData;
         this.context = context;
@@ -80,12 +80,10 @@ public class CartAdapter extends RecyclerView.Adapter<CardViewHolder> {
                 .buildRound("" + listData.get(position).getQuantity(), Color.RED);
 
         holder.img_cart_button.setImageDrawable(drawable);
-
         Locale locale = new Locale("en", "IN");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
         int price = (Integer.parseInt(listData.get(position).getPrice())) * (Integer.parseInt(listData.get(position).getQuantity()));
         holder.txt_price.setText(fmt.format(price));
-
         holder.txt_cart_name.setText(listData.get(position).getProductName());
 
     }
