@@ -30,6 +30,7 @@ import favouritetoys.example.com.myapplication.ViewHolder.CartAdapter;
 
 public class Cart extends AppCompatActivity {
 
+    //  private static final int PAYPAL_REQUEST_CODE = 9999;
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
@@ -38,14 +39,29 @@ public class Cart extends AppCompatActivity {
     DatabaseReference requests;
     TextView txtTotalPrice;
     Button btnPlace;
+    Request request;
 
     List<Order> cart = new ArrayList<>();
     CartAdapter adapter;
+
+  /*  static PayPalConfiguration config= new PayPalConfiguration()
+            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+            .clientId(Config.PAYPAL_CLIENT_ID);
+
+    String address,comment;*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+
+        //Init Paypal
+      /*  Intent intent=new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+        startService(intent);*/
+
 
         //Firebase
         database = FirebaseDatabase.getInstance();
@@ -77,7 +93,7 @@ public class Cart extends AppCompatActivity {
 
     private void showAlertDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(Cart.this);
-        alertDialog.setTitle("oNE MORE STEP");
+        alertDialog.setTitle("ONE MORE STEP");
         alertDialog.setMessage("Add your address");
         final EditText edAddress = new EditText(Cart.this);
 
@@ -91,7 +107,27 @@ public class Cart extends AppCompatActivity {
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Request request = new Request(
+
+             /*   address=edAddress.getText().toString();
+
+                String formatAmount=txtTotalPrice.getText().toString()
+                                        .replace(getString(R.string.Rs),"" )
+                        .replace(",","");
+
+                float amount=Float.parseFloat(formatAmount);
+
+                PayPalPayment payPalPayment=new PayPalPayment(new BigDecimal(formatAmount),
+                        "INR",
+                        "Food Order",
+                        PayPalPayment.PAYMENT_INTENT_SALE);
+
+
+                Intent intent=new Intent(getApplicationContext(), PaymentActivity.class);
+                intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
+                intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
+                startActivityForResult(intent,PAYPAL_REQUEST_CODE);
+                */
+                request = new Request(
                         Common.currentUser.getPhone(),
                         Common.currentUser.getName(),
                         edAddress.getText().toString(),
@@ -119,6 +155,43 @@ public class Cart extends AppCompatActivity {
         });
         alertDialog.show();
     }
+
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+            if(requestCode==PAYPAL_REQUEST_CODE)
+            {
+                if(requestCode==RESULT_OK)
+                {
+                    PaymentConfirmation confirmation =data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+                    if(confirmation!=null)
+                    {
+                        try
+                        {
+                            String paymentDetail=confirmation.toJSONObject().toString(4);
+                            JSONObject jsonObject=new JSONObject(paymentDetail);
+
+
+
+
+
+
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(resultCode== Activity.RESULT_CANCELED)
+                    Toast.makeText(this,"Payment cancelled",Toast.LENGTH_SHORT).show();
+                else if(resultCode==PaymentActivity.RESULT_EXTRAS_INVALID)
+                    Toast.makeText(this,"Invalid Payment",Toast.LENGTH_SHORT).show();
+            }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    */
 
     private void loadListFood() {
 

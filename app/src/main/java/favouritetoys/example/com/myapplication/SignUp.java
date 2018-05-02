@@ -18,7 +18,7 @@ import favouritetoys.example.com.myapplication.Common.Common;
 import favouritetoys.example.com.myapplication.Model.User;
 
 public class SignUp extends AppCompatActivity {
-    MaterialEditText editName, editPhone, editPassword;
+    MaterialEditText editName, editPhone, editPassword, edtSecureCode;
     Button btn_Signup;
 
     @Override
@@ -28,6 +28,9 @@ public class SignUp extends AppCompatActivity {
         editName = (MaterialEditText) findViewById(R.id.editName);
         editPhone = (MaterialEditText) findViewById(R.id.editPhone);
         editPassword = (MaterialEditText) findViewById(R.id.password);
+
+        edtSecureCode = (MaterialEditText) findViewById(R.id.secureCode);
+
         btn_Signup = (Button) findViewById(R.id.btn_SignUp);
 
         final FirebaseDatabase fd = FirebaseDatabase.getInstance();
@@ -53,7 +56,9 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this, "Phone Number already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 pd.dismiss();
-                                User user = new User(editName.getText().toString(), editPassword.getText().toString());
+                                User user = new User(editName.getText().toString(), editPassword.getText().toString(),
+                                        edtSecureCode.getText().toString());
+
                                 dr.child(editPhone.getText().toString()).setValue(user);
                                 Toast.makeText(SignUp.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
                                 finish();

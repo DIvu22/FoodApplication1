@@ -11,6 +11,7 @@ public class Request {
     private String name;
     private String address;
     private String total;
+
     private String status;
     private List<Order> foods;//list of food orders
 
@@ -23,15 +24,7 @@ public class Request {
         this.address = address;
         this.total = total;
         this.foods = foods;
-        this.status = "0";  //default is 0-place,1-shipping,2-shiped
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+        this.status = "0";
     }
 
     public String getPhone() {
@@ -66,6 +59,14 @@ public class Request {
         this.total = total;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public List<Order> getFoods() {
         return foods;
     }
@@ -74,3 +75,5 @@ public class Request {
         this.foods = foods;
     }
 }
+
+

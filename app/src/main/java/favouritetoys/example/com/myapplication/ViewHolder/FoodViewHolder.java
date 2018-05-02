@@ -14,13 +14,14 @@ import favouritetoys.example.com.myapplication.R;
 
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView food_name;
-    public ImageView food_image;
+    public ImageView food_image, fav_image;
     private ItemClickListener itemClickListener;
 
     public FoodViewHolder(View itemView) {
         super(itemView);
         food_name = (TextView) itemView.findViewById(R.id.food_name);
         food_image = (ImageView) itemView.findViewById(R.id.food_image);
+        fav_image = (ImageView) itemView.findViewById(R.id.fav);
         itemView.setOnClickListener(this);
 
     }

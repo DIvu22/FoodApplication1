@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import favouritetoys.example.com.myapplication.Common.Common;
+import favouritetoys.example.com.myapplication.Database.Database;
 import favouritetoys.example.com.myapplication.Interface.ItemClickListener;
 import favouritetoys.example.com.myapplication.Model.Food;
 import favouritetoys.example.com.myapplication.ViewHolder.FoodViewHolder;
@@ -34,6 +35,7 @@ public class FoodList extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference foodList;
     String categoryId = "";
+    Database localDb;
 
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
 
@@ -50,6 +52,7 @@ public class FoodList extends AppCompatActivity {
         //Firebase
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference("Food");
+        localDb = new Database(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_food);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -175,10 +178,35 @@ public class FoodList extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.food_item,
                 FoodViewHolder.class, foodList.orderByChild("menuId").equalTo(categoryId)) {
             @Override
-            protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
+            protected void populateViewHolder(final FoodViewHolder viewHolder, final Food model, final int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage())
                         .into(viewHolder.food_image);
+                //
+                if (localDb.isFavourite(adapter.getRef(position).getKey()))
+                    viewHolder.fav_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+
+                viewHolder.fav_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!localDb.isFavourite(adapter.getRef(position).getKey())) {
+                            localDb.addToFavourites(adapter.getRef(position).getKey());
+                            viewHolder.fav_image.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            Toast.makeText(FoodList.this, "" + model.getName() + "was added to favourites", Toast.LENGTH_SHORT).show();
+
+
+                        } else {
+                            localDb.removeFromFavourites(adapter.getRef(position).getKey());
+                            viewHolder.fav_image.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                            Toast.makeText(FoodList.this, "" + model.getName() + "was remove from favourites", Toast.LENGTH_SHORT).show();
+
+
+                        }
+                    }
+                });
+
+
+
                 final Food local = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
