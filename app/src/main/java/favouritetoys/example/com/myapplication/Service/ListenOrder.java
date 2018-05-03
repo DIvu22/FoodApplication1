@@ -70,7 +70,7 @@ public class ListenOrder extends Service implements ChildEventListener {
                 .setWhen(System.currentTimeMillis())
                 .setTicker("Food Order")
                 .setContentInfo("Your order is updated")
-                .setContentText("Order #" + key + "was update status to" + Common.convertCodeToStatus(request.getStatus()))
+                .setContentText("Order #" + key + "was updated to" + Common.convertCodeToStatus(request.getStatus()))
                 .setContentIntent(contentIntent)
                 .setContentInfo("Info")
                 .setSmallIcon(R.mipmap.ic_launcher);

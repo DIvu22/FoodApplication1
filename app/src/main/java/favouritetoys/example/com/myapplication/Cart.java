@@ -1,8 +1,6 @@
 package favouritetoys.example.com.myapplication;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -19,22 +17,12 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import favouritetoys.example.com.myapplication.Common.Common;
-import favouritetoys.example.com.myapplication.Common.Config;
 import favouritetoys.example.com.myapplication.Database.Database;
 import favouritetoys.example.com.myapplication.Model.Order;
 import favouritetoys.example.com.myapplication.Model.Request;
@@ -42,10 +30,10 @@ import favouritetoys.example.com.myapplication.ViewHolder.CartAdapter;
 
 public class Cart extends AppCompatActivity {
 
-    private static final int PAYPAL_REQUEST_CODE = 9999;
-    static PayPalConfiguration config = new PayPalConfiguration()
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId(Config.PAYPAL_CLIENT_ID);
+    /*  private static final int PAYPAL_REQUEST_CODE = 9999;
+      static PayPalConfiguration config = new PayPalConfiguration()
+              .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+              .clientId(Config.PAYPAL_CLIENT_ID);*/
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     FirebaseDatabase database;
@@ -64,10 +52,10 @@ public class Cart extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
 
-        //Init Paypal
+     /*   //Init Paypal
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
-        startService(intent);
+        startService(intent);*/
 
 
         //Firebase
@@ -114,7 +102,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                address = edAddress.getText().toString();
+             /*   address = edAddress.getText().toString();
 
                 String formatAmount=txtTotalPrice.getText().toString()
                         .replace(getString(R.string.Rs), "")
@@ -133,7 +121,22 @@ public class Cart extends AppCompatActivity {
                 Intent intent=new Intent(getApplicationContext(), PaymentActivity.class);
                 intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,config);
                 intent.putExtra(PaymentActivity.EXTRA_PAYMENT,payPalPayment);
-                startActivityForResult(intent,PAYPAL_REQUEST_CODE);
+                startActivityForResult(intent,PAYPAL_REQUEST_CODE);*/
+                request = new Request(
+                        Common.currentUser.getPhone(),
+                        Common.currentUser.getName(),
+                        edAddress.getText().toString(),
+                        txtTotalPrice.getText().toString(),
+                        cart
+                );
+
+                //submit to firebase
+                requests.child(String.valueOf(System.currentTimeMillis()))
+                        .setValue(request);
+                //delete cart
+                new Database(getBaseContext()).cleanCart();
+                Toast.makeText(Cart.this, "Thankyou ! order placed", Toast.LENGTH_SHORT).show();
+                finish();
 
             }
         });
@@ -146,9 +149,9 @@ public class Cart extends AppCompatActivity {
         alertDialog.show();
     }
 
-
+/*
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
             if(requestCode==PAYPAL_REQUEST_CODE)
             {
@@ -193,7 +196,7 @@ public class Cart extends AppCompatActivity {
             }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+*/
 
     private void loadListFood() {
 

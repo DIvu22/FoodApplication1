@@ -8,10 +8,10 @@
     tools:context="favouritetoys.example.com.myapplication.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="200dp"
@@ -19,42 +19,46 @@
             android:src="@drawable/logo_eat_it"/>
 
         <TextView
-            android:gravity="center"
             android:id="@+id/slogan"
-            android:textColor="@android:color/white"
             android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/Slogan"
-            android:layout_height="wrap_content" />
+            android:textAlignment="center"
+
+            android:textColor="@android:color/white"
+            android:textSize="24dp"
+            android:textStyle="italic" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
         android:weightSum="2"
         >
         <Button
-            android:layout_weight="1"
             android:id="@+id/btn_signup"
-            android:text="Sign Up"
-            android:textColor="@android:color/white"
-            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
             android:background="@color/btnsignup"
+            android:text="Sign Up"
+            android:textColor="@android:color/white"
            />
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/btn_signin"
-            android:text="Sign In"
-            android:background="@color/btnsignin"
-            android:textColor="@android:color/white"
-            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@color/btnsignin"
+            android:text="Sign In"
+            android:textColor="@android:color/white"
            />
 
     </LinearLayout>
